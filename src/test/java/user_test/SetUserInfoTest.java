@@ -33,13 +33,13 @@ public class SetUserInfoTest {
         user = new User("hx6zgnhg92v5u@yandex.ru", "1087533", "Pheoby");
         ValidatableResponse responseSet = userSteps.setUserData(token, user);
         responseSet.assertThat()
+                .statusCode(200)
+                .and()
                 .body("success", Matchers.equalTo(true))
                 .and()
                 .body("user.email", Matchers.equalTo(user.getEmail()))
                 .and()
-                .body("user.name", Matchers.equalTo(user.getName()))
-                .and()
-                .statusCode(200);
+                .body("user.name", Matchers.equalTo(user.getName()));
     }
 
     @Test
@@ -52,11 +52,11 @@ public class SetUserInfoTest {
         user = new User("bxnnz7y699ku@yandex.ru", "98765", "Leonardo");
         ValidatableResponse responseSet = userSteps.setNotAuthUserData(user);
         responseSet.assertThat()
+                .statusCode(401)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("You should be authorised"))
-                .and()
-                .statusCode(401);
+                .body("message", Matchers.equalTo("You should be authorised"));
     }
 
     @After

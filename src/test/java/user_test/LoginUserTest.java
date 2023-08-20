@@ -30,13 +30,13 @@ public class LoginUserTest {
     public void loginCorrectTest() {
         ValidatableResponse response = userSteps.loginRealUser(user);
         response.assertThat()
+                .statusCode(200)
+                .and()
                 .body("success", Matchers.equalTo(true))
                 .and()
                 .body("user.email", Matchers.equalTo(user.getEmail()))
                 .and()
-                .body("user.name", Matchers.equalTo(user.getName()))
-                .and()
-                .statusCode(200);
+                .body("user.name", Matchers.equalTo(user.getName()));
         System.out.println(token);
         }
 
@@ -47,11 +47,11 @@ public class LoginUserTest {
         user = new User("errrormxk8zfu@yandex.ru", "1k29834", "Lola");
         ValidatableResponse response = userSteps.loginRealUser(user);
         response.assertThat()
+                .statusCode(401)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("email or password are incorrect"))
-                .and()
-                .statusCode(401);
+                .body("message", Matchers.equalTo("email or password are incorrect"));
     }
 
     @Test
@@ -61,11 +61,11 @@ public class LoginUserTest {
         user = new User("3i7v303aszfu@yandex.ru", "108g88ju34", "Lola");
         ValidatableResponse response = userSteps.loginRealUser(user);
         response.assertThat()
+                .statusCode(401)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("email or password are incorrect"))
-                .and()
-                .statusCode(401);
+                .body("message", Matchers.equalTo("email or password are incorrect"));
     }
 
     @After

@@ -29,13 +29,13 @@ public class CreateUserTest {
         ValidatableResponse response = userSteps.newUser(user);
         token = response.extract().path("accessToken");
         response.assertThat()
+                .statusCode(200)
+                .and()
                 .body("success", Matchers.equalTo(true))
                 .and()
                 .body("user.email", Matchers.equalTo(user.getEmail()))
                 .and()
-                .body("user.name", Matchers.equalTo(user.getName()))
-                .and()
-                .statusCode(200);
+                .body("user.name", Matchers.equalTo(user.getName()));
         System.out.println(token);
     }
     @Test
@@ -45,11 +45,11 @@ public class CreateUserTest {
         user = new User("test-data@yandex.ru", "password", "Username");
         ValidatableResponse responseCreateIdentical = userSteps.newUser(user);
         responseCreateIdentical.assertThat()
+                .statusCode(403)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("User already exists"))
-                .and()
-                .statusCode(403);
+                .body("message", Matchers.equalTo("User already exists"));
     }
 
 
@@ -60,11 +60,11 @@ public class CreateUserTest {
         user = new User("", "1k29834", "Lola");
         ValidatableResponse validatableResponse = userSteps.createUserWithoutFullInfo(user);
         validatableResponse.assertThat()
+                .statusCode(403)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("Email, password and name are required fields"))
-                .and()
-                .statusCode(403);
+                .body("message", Matchers.equalTo("Email, password and name are required fields"));
     }
 
     @Test
@@ -74,11 +74,11 @@ public class CreateUserTest {
         user = new User("0vdt6bh7gfu@yandex.ru", "", "Lola");
         ValidatableResponse validatableResponse = userSteps.createUserWithoutFullInfo(user);
         validatableResponse.assertThat()
+                .statusCode(403)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("Email, password and name are required fields"))
-                .and()
-                .statusCode(403);
+                .body("message", Matchers.equalTo("Email, password and name are required fields"));
     }
 
     @Test
@@ -88,11 +88,11 @@ public class CreateUserTest {
         user = new User("0vhxdobh7g11u@yandex.ru", "766nhdd", "");
         ValidatableResponse validatableResponse = userSteps.createUserWithoutFullInfo(user);
         validatableResponse.assertThat()
+                .statusCode(403)
+                .and()
                 .body("success", Matchers.equalTo(false))
                 .and()
-                .body("message", Matchers.equalTo("Email, password and name are required fields"))
-                .and()
-                .statusCode(403);
+                .body("message", Matchers.equalTo("Email, password and name are required fields"));
     }
 
     @After
