@@ -1,4 +1,4 @@
-package order_test;
+package order.test;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
@@ -15,7 +15,6 @@ import diplom2.user.UserSteps;
 
 public class GetUserOrdersTest {
     private String token;
-    private Integer number;
     private User user;
     private UserSteps userSteps;
     private Order order;

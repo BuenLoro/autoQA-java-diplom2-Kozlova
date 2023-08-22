@@ -1,4 +1,4 @@
-package user_test;
+package user.test;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;

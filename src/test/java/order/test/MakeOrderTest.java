@@ -1,4 +1,4 @@
-package order_test;
+package order.test;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
